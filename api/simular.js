@@ -63,12 +63,13 @@ export default function handler(req, res) {
   const adiantamentoPermitido = liquido >= minimoLiquido;
   const parcelaOk = parcelaEconsig <= margemConsignavel;
 
+  res.setHeader("Content-Type", "application/json");
   res.status(200).json({
     parcelaDentroDaMargem: parcelaOk,
     adiantamentoPermitido,
     salarioLiquido: liquido.toFixed(2),
     mensagem:
-      `Parcela ${parcelaOk ? "✅ dentro" : "❌ fora"} da margem. ` +
-      `Adiantamento ${adiantamentoPermitido ? "✅ mantido" : "⚠️ suspenso"}.`
+      `Parcela ${parcelaOk ? "dentro" : "fora"} da margem. ` +
+      `Adiantamento ${adiantamentoPermitido ? "mantido" : "suspenso"}.`
   });
 }
